@@ -1,0 +1,67 @@
+// Create a user
+POST http://localhost:5000/user
+Content-Type: application/json
+
+{
+  "name": "Arif",
+  "email": "arif@gmail.com",
+  "password": "arifthea",
+  "confPassword": "arifthea"
+}
+
+### Get all User
+GET http://localhost:5000/user
+
+
+### Get single User
+GET http://localhost:5000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMDkyMDY2MCIsIm5hbWUiOiJBcmlmIFJhbWRhbmkiLCJlbWFpbCI6ImFyaWZAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjg4NDYyMzIyLCJleHAiOjE2ODg0NjIzMzd9.6RvqpiewGMbIIzT0kvigQjTyWXkY_Gr6VgHELYvi0oc
+
+{
+  "email": "mutiara@gmail.com"
+}
+
+### Get Refresh Token
+GET http://localhost:5000/token
+
+
+### Update user
+PUT http://localhost:5000/user/64f916e961a4500c7a1bfe8e
+Content-Type: application/json
+
+{
+  "name": "Arif Ramdani update",
+  "email": "ariframdani210@gmail.com",
+  "password": "arifthea"
+}
+
+### delete user
+DELETE http://localhost:5000/user/64f916e961a4500c7a1bfe8e
+
+
+### User login
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "arif@gmail.com",
+  "password": "0512"
+}
+
+
+### User login
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "nami@gmail.com",
+  "password": "1234"
+}
+
+
+### User logout
+DELETE http://localhost:5000/logout
+
+
+### Get Me
+GET http://localhost:5000/me
