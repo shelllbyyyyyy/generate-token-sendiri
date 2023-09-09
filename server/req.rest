@@ -9,6 +9,18 @@ Content-Type: application/json
   "confPassword": "arifthea"
 }
 
+### logout
+DELETE http://localhost:5000/logout
+
+### login
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+  "email": "arif@gmail.com",
+  "password": "arifthea"
+}
+
 ### Get all User
 GET http://localhost:5000/user
 
