@@ -12,7 +12,6 @@ const Login = async (req, res) => {
       return res.status(400).json({ msg: "Wrong password...!" })
 
     const data = (response.name, response.email)
-    const generateRandomKey = data
     const hash = (value) => {
       const algorithm = "sha512"
       const secretKey = process.env.ACCESS_SECRET_TOKEN
@@ -21,13 +20,11 @@ const Login = async (req, res) => {
         .digest("hex")
         .substring(0, 32)
     }
+    const accessToken = hash(data)
 
-    const token = generateRandomKey
-    const hashedToken = hash(token)
+    await User.updateOne({ email }, { $set: { apiKey: accessToken } })
 
-    await User.updateOne({ email }, { $set: { apiKey: hashedToken } })
-
-    res.cookie("refreshToken", hashedToken, {
+    res.cookie("refreshToken", accessToken, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     })
