@@ -1,6 +1,6 @@
 const User = require("../models/Users")
 const { compare } = require("bcrypt")
-const { createHmac } = require("node:crypto")
+const { createHmac, randomUUID } = require("node:crypto")
 
 const Login = async (req, res) => {
   const { email, password } = req.body
@@ -11,7 +11,10 @@ const Login = async (req, res) => {
     if (match !== true)
       return res.status(400).json({ msg: "Wrong password...!" })
 
-    const data = (response.name, response.email)
+    const name = response.name
+    const e_mail = response.email
+    const data = randomUUID()
+
     const hash = (value) => {
       const algorithm = "sha512"
       const secretKey = process.env.ACCESS_SECRET_TOKEN
@@ -20,7 +23,7 @@ const Login = async (req, res) => {
         .digest("hex")
         .substring(0, 32)
     }
-    const accessToken = hash(data)
+    const accessToken = hash(data, name, e_mail)
 
     await User.updateOne({ email }, { $set: { apiKey: accessToken } })
 
@@ -28,7 +31,7 @@ const Login = async (req, res) => {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     })
-    res.json({ hashedToken })
+    res.json({ accessToken })
   } catch (error) {
     res.status(500).json({ msg: error.message })
   }
